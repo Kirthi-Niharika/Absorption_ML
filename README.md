@@ -1,17 +1,22 @@
 # Adsorption energy calculations
 
-A structural relaxation or structure optimization is the process of iteratively updating atom positions to find the atom positions that minimize the energy of the structure. Standard optimization methods are used in structural relaxations — below we use the Limited-Memory Broyden–Fletcher–Goldfarb–Shanno (LBFGS) algorithm. The step number, time, energy, and force max are printed at each optimization step. Each step is considered one example because it provides all the information we need to train models for the S2EF task and the entire set of steps is referred to as a trajectory. Visualizing intermediate structures or viewing the entire trajectory can be illuminating to understand what is physically happening and to look for problems in the simulation, especially when we run ML-driven relaxations. 
+A structural relaxation or structure optimization is the process of iteratively updating atom positions to find the atom positions that minimize the energy of the structure. Standard optimization methods are used in structural relaxations, we use the Limited-Memory Broyden–Fletcher–Goldfarb–Shanno (LBFGS) algorithm. The step number, time, energy and force max are printed at each optimization step. 
+
+Each step is considered one example because it provides all the information we need to train models for the S2EF task and the entire set of steps is referred to as a trajectory. 
+Visualizing intermediate structures or viewing the entire trajectory can be illuminating to understand what is physically happening and to look for problems in the simulation, especially when we run ML-driven relaxations. 
 
 ## Setup and relaxation of a bare slab
 
-First, let's set up a bare Cu(100) surface. We'll use ASE to make the initial structure, and LBFGS to do a quick relaxation to find the lowest energy configuration. 
+First, we virtually set up a bare Cu(100) surface. We'll use ASE to make the initial structure, and LBFGS to do a quick relaxation to find the lowest energy configuration. 
 
 We'll fix the bottom couple layers of the copper surface to approximate a very thick copper slab and prevent the surface from moving. This is a very common trick in the catalysis community. 
 
-For this demonstration, we'll use the Effective Medium Theory (EMT) calculator from ASE. It works pretty well for simple metal structures like Cu(100) and is very fast. However, it won't do a good job with the adsorbate later on in the example!
+For this demonstration, we'll use the Effective Medium Theory (EMT) calculator from ASE. It works well for simple metal structures like Cu(100) and is very fast. 
+However, it won't do a good job with the adsorbate later on in the example.
+
 ### Viewing a trajectory
 
-Below we visualize the initial, middle, and final steps in the structural relaxation trajectory from above. Copper atoms in the surface are colored orange. EMT does a good job here and gets a relaxed structure very quickly. It only takes a few steps, and if you look closely you can see just the top layer of Cu atoms move a bit.
+Below we visualize the initial, middle and final steps in the structural relaxation trajectory from above. Copper atoms in the surface are colored orange. EMT does a good job here and gets a relaxed structure very quickly. It only takes a few steps, and if you look closely you can see just the top layer of Cu atoms move a bit.
 
 `````{tip}
 Visualizations can be used as a quick sanity check to ensure the initial system is set up correctly and there are no major issues with the simulation!
